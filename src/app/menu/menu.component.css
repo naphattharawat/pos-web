@@ -1,0 +1,13 @@
+
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* ให้เต็มความสูงของหน้าจอ */
+  }
+
+  .button-group {
+    display: flex;
+    gap: 15px; /* เพิ่มระยะห่างระหว่างปุ่ม */
+  }
+

@@ -1,0 +1,237 @@
+<div class="main-container" style="padding: 0.5rem;">
+  <div class="clr-row">
+    <div class="clr-col-7 clr-col-md-7">
+      <div class="card" style="margin-top: 0;">
+        <div class="card-block">
+          <h3 class="card-title">
+            <div class="clr-row">
+              <div class="clr-col-4"></div>
+              <div class="clr-col-8" style="text-align: right;">
+                ยอดรวม <span style="font-size: 2rem;">{{sum()}}</span> บาท - จำนวน {{items.length}} ชิ้น
+              </div>
+            </div>
+          </h3>
+          <div class="card-text">
+            <div class="clr-row">
+              <div class="clr-col-2 clr-col-md-2" *ngFor="let n of type">
+                <button class="btn btn-primary" (click)="typeSelected=n"> {{n.name}}</button>
+              </div>
+            </div>
+            <br>
+            <div class="clr-row">
+              <div class="clr-col-2 clr-col-md-2" *ngFor="let n of users" style="padding-top: 0.5rem;">
+                <button class="btn btn-primary" (click)="userSelected = n"> {{n.name}}</button>
+              </div>
+            </div>
+            <br>
+            <br>
+            <div class="clr-row">
+              <div class="clr-col-7"> </div>
+              <div class="clr-col-5">
+                <button *ngIf="typeSelected" class="btn btn-sm btn-info-outline"> {{typeSelected.name}}</button>
+                <button *ngIf="userSelected" class="btn btn-sm btn-info-outline"> {{userSelected.name}}</button>
+              </div>
+              <div class="clr-col-7">
+                <button class="btn btn-warning" (click)="price='100'">100</button>
+                <button class="btn btn-warning" (click)="price='200'">200</button>
+                <button class="btn btn-warning" (click)="price='250'">250</button>
+                <button class="btn btn-warning" (click)="price='300'">300</button>
+                <button class="btn btn-warning" (click)="price='350'">350</button>
+              </div>
+              <div class="clr-col-5">
+                ราคา : <input type="text" [(ngModel)]="price" style="font-size: 1rem;width:100%;">
+                <div class="clr-row">
+                  <div class="clr-col-4" style="padding: 0.1rem;"><button class="btn btn-success"
+                      (click)="onClickNum('7')">7</button></div>
+                  <div class="clr-col-4" style="padding: 0.1rem;"><button class="btn btn-success"
+                      (click)="onClickNum('8')">8</button></div>
+                  <div class="clr-col-4" style="padding: 0.1rem;"><button class="btn btn-success"
+                      (click)="onClickNum('9')">9</button></div>
+
+                  <div class="clr-col-4" style="padding: 0.1rem;"><button class="btn btn-success"
+                      (click)="onClickNum('4')">4</button></div>
+                  <div class="clr-col-4" style="padding: 0.1rem;"><button class="btn btn-success"
+                      (click)="onClickNum('5')">5</button></div>
+                  <div class="clr-col-4" style="padding: 0.1rem;"><button class="btn btn-success"
+                      (click)="onClickNum('6')">6</button></div>
+
+                  <div class="clr-col-4" style="padding: 0.1rem;"><button class="btn btn-success"
+                      (click)="onClickNum('1')">1</button></div>
+                  <div class="clr-col-4" style="padding: 0.1rem;"><button class="btn btn-success"
+                      (click)="onClickNum('2')">2</button></div>
+                  <div class="clr-col-4" style="padding: 0.1rem;"><button class="btn btn-success"
+                      (click)="onClickNum('3')">3</button></div>
+
+                  <div class="clr-col-4" style="padding: 0.1rem;"></div>
+                  <div class="clr-col-4" style="padding: 0.1rem;"><button class="btn btn-success"
+                      (click)="onClickNum('0')">0</button></div>
+                  <div class="clr-col-4" style="padding: 0.1rem;"><button class="btn btn-success"
+                      (click)="onClickNum('delete')">ลบ</button></div>
+                  <div class="clr-col-12" style="padding: 0.1rem;">
+                    <button class="btn btn-success btn-sm btn-block" (click)="onClickAdd()"
+                      [disabled]="!(typeSelected && userSelected && price)">ตกลง</button>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+        <!-- <div class="card-footer">
+           <a href="#" class="btn btn-sm btn-link">Action</a>
+       </div> -->
+      </div>
+    </div>
+    <div class="clr-col-5 clr-col-md-5">
+      <div class="card">
+        <div class="card-block">
+          <h3 class="card-title">POS - Hidden Toys</h3>
+          <div class="card-text">
+            <input type="text" (keyup)="onScanBarcode($event)" [autofocus]="true" [(ngModel)]="barcode"
+              style="font-size: 3rem;width:100%;">
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-block">
+          <!-- <h3 class="card-title">Title</h3> -->
+          <div class="card-text">
+            <clr-datagrid>
+              <clr-dg-column>รายการ</clr-dg-column>
+              <clr-dg-column>จำนวน</clr-dg-column>
+              <clr-dg-column>ราคา</clr-dg-column>
+
+              <clr-dg-row *clrDgItems="let item of items" (click)="openModalDiscount(item)">
+                <clr-dg-cell>{{item.name}}<br>({{item.code}})</clr-dg-cell>
+                <clr-dg-cell>{{item.qty}}</clr-dg-cell>
+                <clr-dg-cell>{{item.price}} <span *ngIf="item.net">->{{item.net}}</span></clr-dg-cell>
+              </clr-dg-row>
+
+              <clr-dg-footer>{{items.length}} items</clr-dg-footer>
+            </clr-datagrid>
+            <div class="clr-row">
+              <div class="clr-col-12">
+                <button class="btn btn-sm btn-danger btn-block" [disabled]="items.length==0"
+                  (click)="onClickOrder()">สรุปยอด</button>
+              </div>
+
+            </div>
+          </div>
+        </div>
+        <!-- <div class="card-footer">
+           <a href="#" class="btn btn-sm btn-link">Action</a>
+       </div> -->
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+
+<clr-modal [(clrModalOpen)]="modalDiscount">
+  <h3 class="modal-title">ส่วนลด</h3>
+  <div class="modal-body">
+    <div class="clr-row">
+      <div class="clr-col-12" style="font-size: 1rem;">
+        {{item.name}} x {{item.qty}} ราคา {{item.price}} บาท
+      </div>
+      <div class="clr-col-12" style="font-size: 1rem;">ลดเหลือ <input type="text" [(ngModel)]="item.net"></div>
+      <div class="clr-col-12">
+        <div class="clr-row">
+          <div class="clr-col-4" style="padding: 0.1rem;"><button class="btn btn-success"
+              (click)="onClickNumModal('7')">7</button></div>
+          <div class="clr-col-4" style="padding: 0.1rem;"><button class="btn btn-success"
+              (click)="onClickNumModal('8')">8</button></div>
+          <div class="clr-col-4" style="padding: 0.1rem;"><button class="btn btn-success"
+              (click)="onClickNumModal('9')">9</button></div>
+
+          <div class="clr-col-4" style="padding: 0.1rem;"><button class="btn btn-success"
+              (click)="onClickNumModal('4')">4</button></div>
+          <div class="clr-col-4" style="padding: 0.1rem;"><button class="btn btn-success"
+              (click)="onClickNumModal('5')">5</button></div>
+          <div class="clr-col-4" style="padding: 0.1rem;"><button class="btn btn-success"
+              (click)="onClickNumModal('6')">6</button></div>
+
+          <div class="clr-col-4" style="padding: 0.1rem;"><button class="btn btn-success"
+              (click)="onClickNumModal('1')">1</button></div>
+          <div class="clr-col-4" style="padding: 0.1rem;"><button class="btn btn-success"
+              (click)="onClickNumModal('2')">2</button></div>
+          <div class="clr-col-4" style="padding: 0.1rem;"><button class="btn btn-success"
+              (click)="onClickNumModal('3')">3</button></div>
+
+          <div class="clr-col-4" style="padding: 0.1rem;"></div>
+          <div class="clr-col-4" style="padding: 0.1rem;"><button class="btn btn-success"
+              (click)="onClickNumModal('0')">0</button></div>
+          <div class="clr-col-4" style="padding: 0.1rem;"><button class="btn btn-success"
+              (click)="onClickNumModal('delete')">ลบ</button></div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <!-- <button type="button" class="btn btn-outline" (click)="modalDiscount = false">Cancel</button> -->
+    <button type="button" class="btn btn-primary" (click)="saveDiscount()">Ok</button>
+  </div>
+</clr-modal>
+
+
+<clr-modal [(clrModalOpen)]="modalCash">
+  <h3 class="modal-title">สรุปยอดซื้อ</h3>
+  <div class="modal-body">
+    <div class="clr-row">
+      <div class="clr-col-6" style="font-size: 1rem;margin-top: 0.3rem;">จำนวน</div>
+      <div class="clr-col-6" style="font-size: 1.2rem;margin-top: 0.3rem;">{{this.items.length}} ชิ้น</div>
+      <div class="clr-col-6" style="font-size: 1rem;margin-top: 0.3rem;">รวมทั้งหมด</div>
+      <div class="clr-col-6" style="font-size: 1.2rem;margin-top: 0.3rem;">{{this.sum()}} บาท</div>
+      <div class="clr-col-6" style="font-size: 1rem;margin-top: 0.3rem;">ลดเหลือ</div>
+      <div class="clr-col-6" style="font-size: 1rem;margin-top: 0.3rem;"><input type="text" [(ngModel)]="net"></div>
+      <div class="clr-col-6"></div>
+      <div class="clr-col-6">
+        <div class="clr-row">
+          <div class="clr-col-4" style="padding: 0.1rem;"><button class="btn btn-success"
+              (click)="onClickNumModalCash('7')">7</button></div>
+          <div class="clr-col-4" style="padding: 0.1rem;"><button class="btn btn-success"
+              (click)="onClickNumModalCash('8')">8</button></div>
+          <div class="clr-col-4" style="padding: 0.1rem;"><button class="btn btn-success"
+              (click)="onClickNumModalCash('9')">9</button></div>
+
+          <div class="clr-col-4" style="padding: 0.1rem;"><button class="btn btn-success"
+              (click)="onClickNumModalCash('4')">4</button></div>
+          <div class="clr-col-4" style="padding: 0.1rem;"><button class="btn btn-success"
+              (click)="onClickNumModalCash('5')">5</button></div>
+          <div class="clr-col-4" style="padding: 0.1rem;"><button class="btn btn-success"
+              (click)="onClickNumModalCash('6')">6</button></div>
+
+          <div class="clr-col-4" style="padding: 0.1rem;"><button class="btn btn-success"
+              (click)="onClickNumModalCash('1')">1</button></div>
+          <div class="clr-col-4" style="padding: 0.1rem;"><button class="btn btn-success"
+              (click)="onClickNumModalCash('2')">2</button></div>
+          <div class="clr-col-4" style="padding: 0.1rem;"><button class="btn btn-success"
+              (click)="onClickNumModalCash('3')">3</button></div>
+
+          <div class="clr-col-4" style="padding: 0.1rem;"></div>
+          <div class="clr-col-4" style="padding: 0.1rem;"><button class="btn btn-success"
+              (click)="onClickNumModalCash('0')">0</button></div>
+          <div class="clr-col-4" style="padding: 0.1rem;"><button class="btn btn-success"
+              (click)="onClickNumModalCash('delete')">ลบ</button></div>
+        </div>
+      </div>
+      <div class="clr-row">
+        <div class="clr-col-12">
+          <button class="btn btn-success btn-block" [disabled]="items.length==0"
+            (click)="onPay('cash')">เงินสด</button>
+        </div>
+        <div class="clr-col-12"> <button class="btn btn-primary btn-block" [disabled]="items.length==0"
+            (click)="onPay('qr')">QR</button></div>
+        <div class="clr-col-12"> <button class="btn btn-danger btn-block" [disabled]="items.length==0"
+            (click)="onPay('credit')">เครดิต</button></div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline" (click)="modalCash = false">Cancel</button>
+    <!-- <button type="button" class="btn btn-primary" (click)="onPay()">Ok</button> -->
+  </div>
+</clr-modal>
