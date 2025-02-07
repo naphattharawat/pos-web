@@ -100,11 +100,13 @@
               <clr-dg-column>รายการ</clr-dg-column>
               <clr-dg-column>จำนวน</clr-dg-column>
               <clr-dg-column>ราคา</clr-dg-column>
+              <clr-dg-column>ลบ</clr-dg-column>
 
               <clr-dg-row *clrDgItems="let item of items" (click)="openModalDiscount(item)">
                 <clr-dg-cell>{{item.name}}<br>({{item.code}})</clr-dg-cell>
                 <clr-dg-cell>{{item.qty}}</clr-dg-cell>
                 <clr-dg-cell>{{item.price}} <span *ngIf="item.net">->{{item.net}}</span></clr-dg-cell>
+                <clr-dg-cell><button class="btn btn-icon btn-sm" (click)="remove(item.code)">ลบ</button></clr-dg-cell>
               </clr-dg-row>
 
               <clr-dg-footer>{{items.length}} items</clr-dg-footer>

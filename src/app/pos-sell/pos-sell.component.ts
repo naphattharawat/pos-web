@@ -179,4 +179,10 @@ export class PosSellComponent implements OnInit {
       this.alertService.error(error)
     }
   }
+  remove(code: any) {
+    const idx = _.findIndex(this.items, { 'code': code });
+    if (idx > -1) {
+      this.items.splice(idx, 1);
+    }
+  }
 }
