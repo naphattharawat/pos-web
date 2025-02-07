@@ -72,6 +72,7 @@ export class PosSellComponent implements OnInit {
     console.log(event);
 
     if (event.keyCode == 13) {
+      this.barcode.padStart(12, "0")
       const rs: any = await this.posService.scan(this.barcode);
       if (rs.ok) {
         this.barcode = '';
