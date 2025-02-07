@@ -1,3 +1,3 @@
 export const environment = {
-  api:'http://localhost:3000'
+  api:'https://mahhorn3.zapto.org/pos-api'
 };
