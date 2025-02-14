@@ -14,13 +14,13 @@
           <div class="card-text">
             <div class="clr-row">
               <div class="clr-col-2 clr-col-md-2" *ngFor="let n of type">
-                <button class="btn btn-primary" (click)="typeSelected=n"> {{n.name}}</button>
+                <button class="btn" [ngClass]="{'btn-primary': typeSelected==n,'btn-primary-outline':typeSelected!==n}" (click)="typeSelected=n"> {{n.name}}</button>
               </div>
             </div>
             <br>
             <div class="clr-row">
               <div class="clr-col-2 clr-col-md-2" *ngFor="let n of users" style="padding-top: 0.5rem;">
-                <button class="btn btn-primary" (click)="userSelected = n"> {{n.name}}</button>
+                <button class="btn"  [ngClass]="{'btn-primary': userSelected==n,'btn-primary-outline':userSelected!==n}" (click)="userSelected = n"> {{n.name}}</button>
               </div>
             </div>
             <br>
