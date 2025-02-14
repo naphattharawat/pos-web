@@ -115,6 +115,13 @@ export class PosSellComponent implements OnInit {
     }
     return price;
   }
+  sumPrice() {
+    let price = 0;
+    for (const i of this.items) {
+      price += i.qty * i.price;
+    }
+    return price;
+  }
 
   async onClickOrder() {
     // let typename = '';
@@ -166,9 +173,7 @@ export class PosSellComponent implements OnInit {
 
   async onPay(type: any) {
     try {
-      console.log(this.net, +this.net);
-
-      const rs: any = await this.posService.order(this.items, type, this.sum(), +this.net ? this.net : this.sum())
+      const rs: any = await this.posService.order(this.items, type, this.sumPrice(), this.sum())
       if (rs.ok) {
         this.modalCash = false;
         this.items = [];
