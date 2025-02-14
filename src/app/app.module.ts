@@ -12,6 +12,7 @@ import { AlertService } from './alert.service';
 import { ProductsComponent } from './products/products.component';
 import { AutofocusDirective } from './autofocus.directive';
 import { MenuComponent } from './menu/menu.component';
+import { Report1Component } from './report1/report1.component';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { MenuComponent } from './menu/menu.component';
     PosSellComponent,
     ProductsComponent,
     AutofocusDirective,
-    MenuComponent
+    MenuComponent,
+    Report1Component
   ],
   imports: [
     BrowserModule,

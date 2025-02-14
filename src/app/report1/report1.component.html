@@ -1,0 +1,17 @@
+<clr-datagrid>
+    <clr-dg-column >created_date</clr-dg-column>
+    <clr-dg-column >ราคา</clr-dg-column>
+    <clr-dg-column >ราคาสุทธิ</clr-dg-column>
+    <clr-dg-column >ประเภท</clr-dg-column>
+    <clr-dg-column >รายละเอียด</clr-dg-column>
+
+    <clr-dg-row *clrDgItems="let i of list">
+        <clr-dg-cell>{{i.created_date}}</clr-dg-cell>
+        <clr-dg-cell>{{i.price}}</clr-dg-cell>
+        <clr-dg-cell>{{i.net}}</clr-dg-cell>
+        <clr-dg-cell>{{i.type}}</clr-dg-cell>
+        <clr-dg-cell>{{i.details}}</clr-dg-cell>
+    </clr-dg-row>
+
+    <clr-dg-footer>{{list.length}} items</clr-dg-footer>
+</clr-datagrid>

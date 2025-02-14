@@ -75,4 +75,15 @@ export class PosService {
         });
     });
   }
+
+  async getReport1() {
+    return new Promise<any>((resolve, reject) => {
+      this.http
+        .get(this.api + `/pos/report`, this.httpOptions)
+        .subscribe((data) => {
+          resolve(data);
+        });
+    });
+
+  }
 }
